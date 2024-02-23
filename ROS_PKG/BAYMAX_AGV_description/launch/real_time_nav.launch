@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<launch>
+
+    <param name="robot_description" command="$(find xacro)/xacro $(find BAYMAX_AGV_description)/urdf/BAYMAX_AGV.xacro"/>
+
+    <node name="joint_tester" pkg="rviz" type="rviz" output="screen" args="-d $(find BAYMAX_AGV_description)/config/map.rviz"/>
+
+    <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+   
+    
+   
+    <node pkg="move_base" type="move_base" name="move_base" output="screen">
+        <param name="controller_frequency" value="10.0" />
+        <rosparam file="$(find BAYMAX_AGV_description)/config/costmap_common_params.yaml" command="load" ns="global_costmap"/>
+        <rosparam file="$(find BAYMAX_AGV_description)/config/costmap_common_params.yaml" command="load" ns="local_costmap"/>
+        <rosparam file="$(find BAYMAX_AGV_description)/config/local_costmap_params.yaml" command="load" />
+        <rosparam file="$(find BAYMAX_AGV_description)/config/global_costmap_params.yaml" command="load" />
+        <rosparam file="$(find BAYMAX_AGV_description)/config/base_global_planner_params.yaml" command="load" />
+        <rosparam file="$(find BAYMAX_AGV_description)/config/base_local_planner_params.yaml" command="load" />
+        <rosparam file="$(find BAYMAX_AGV_description)/config/move_base_params.yaml" command="load" />
+
+        </node>
+
+</launch>

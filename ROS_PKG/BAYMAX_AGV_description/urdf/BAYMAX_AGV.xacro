@@ -1,0 +1,138 @@
+<?xml version="1.0" ?>
+<robot name="BAYMAX_AGV" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+<xacro:include filename="$(find BAYMAX_AGV_description)/urdf/materials.xacro" />
+<xacro:include filename="$(find BAYMAX_AGV_description)/urdf/BAYMAX_AGV.trans" />
+<xacro:include filename="$(find BAYMAX_AGV_description)/urdf/BAYMAX_AGV.gazebo" />
+<link name="base_link">
+  <inertial>
+    <origin xyz="0.0163526526709143 -0.0002742223115800173 0.10038863858032329" rpy="0 0 0"/>
+    <mass value="5.831665737577658"/>
+    <inertia ixx="0.129984" iyy="0.18936" izz="0.249978" ixy="-1.7e-05" iyz="5.3e-05" ixz="-0.012862"/>
+  </inertial>
+  <visual>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://BAYMAX_AGV_description/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="white"/>
+  </visual>
+  <collision>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://BAYMAX_AGV_description/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="left_wheel_1">
+  <inertial>
+    <origin xyz="-8.048879387819683e-18 0.018242355565773027 0.0" rpy="0 0 0"/>
+    <mass value="2.217555098328873"/>
+    <inertia ixx="0.001654" iyy="0.00282" izz="0.001654" ixy="-0.0" iyz="-0.0" ixz="-0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.0 -0.132 -0.05" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://BAYMAX_AGV_description/meshes/left_wheel_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="black"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.0 -0.132 -0.05" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://BAYMAX_AGV_description/meshes/left_wheel_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="right_wheel_1">
+  <inertial>
+    <origin xyz="-1.6097758775639362e-17 -0.01824235556577311 -1.3877787807814457e-17" rpy="0 0 0"/>
+    <mass value="2.2175550983288734"/>
+    <inertia ixx="0.001654" iyy="0.00282" izz="0.001654" ixy="-0.0" iyz="-0.0" ixz="-0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.0 0.132 -0.05" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://BAYMAX_AGV_description/meshes/right_wheel_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="black"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.0 0.132 -0.05" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://BAYMAX_AGV_description/meshes/right_wheel_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="lidar_1">
+  <inertial>
+    <origin xyz="5.551115123125783e-17 7.539092578283892e-18 0.007500000000000007" rpy="0 0 0"/>
+    <mass value="0.5918760559363169"/>
+    <inertia ixx="0.000248" iyy="0.000248" izz="0.000474" ixy="0.0" iyz="-0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.18 -0.0 -0.2551" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://BAYMAX_AGV_description/meshes/lidar_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="blue"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.18 -0.0 -0.2551" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://BAYMAX_AGV_description/meshes/lidar_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="baymax_lid_1">
+  <inertial>
+    <origin xyz="-0.22999067320842267 -0.1298544519260583 -0.00012315934079434876" rpy="0 0 0"/>
+    <mass value="8.339122245125255"/>
+    <inertia ixx="0.160958" iyy="0.125301" izz="0.285161" ixy="2e-06" iyz="0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.231783 -0.130625 -0.2351" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://BAYMAX_AGV_description/meshes/baymax_lid_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="white"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.231783 -0.130625 -0.2351" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://BAYMAX_AGV_description/meshes/baymax_lid_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<joint name="Revolute7" type="continuous">
+  <origin xyz="0.0 0.132 0.05" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="left_wheel_1"/>
+  <axis xyz="0.0 1.0 0.0"/>
+</joint>
+
+<joint name="Revolute8" type="continuous">
+  <origin xyz="0.0 -0.132 0.05" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="right_wheel_1"/>
+  <axis xyz="0.0 1.0 0.0"/>
+</joint>
+
+<joint name="Rigid9" type="fixed">
+  <origin xyz="0.18 0.0 0.2551" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="lidar_1"/>
+</joint>
+
+<joint name="Rigid11" type="fixed">
+  <origin xyz="0.231783 0.130625 0.2351" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="baymax_lid_1"/>
+</joint>
+
+</robot>

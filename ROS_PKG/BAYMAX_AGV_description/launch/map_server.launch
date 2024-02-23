@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<launch>
+    <arg name="map_name" default="map"/>
+    <node name="map_server" pkg="map_server" type="map_server"  args="$(find BAYMAX_AGV_description)/map/$(arg map_name).yaml">    
+    </node>
+</launch>

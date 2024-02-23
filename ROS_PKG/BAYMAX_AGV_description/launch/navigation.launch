@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<launch>
+
+    <param name="robot_description" command="$(find xacro)/xacro $(find BAYMAX_AGV_description)/urdf/BAYMAX_AGV.xacro"/>
+    I
+    
+    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+        <arg name="world_name" value="$(find BAYMAX_AGV_description)/world/simple_world/simple_world.world"/>
+        <arg name="paused" value="false"/>
+        <arg name="use_sim_time" value="true"/>
+        <arg name="gui" value="true"/>
+        <arg name="headless" value="false"/>
+        <arg name="debug" value="false"/>
+      </include> 
+    <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-param robot_description -urdf -model BAYMAX_AGV_description" />
+
+    <node name="joint_tester" pkg="rviz" type="rviz" output="screen" args="-d $(find BAYMAX_AGV_description)/config/map.rviz"/>
+
+    <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+   
+    <!--<node pkg="gmapping" type="slam_gmapping" name="maping_node">
+        <param name="base_frame" value="base_link" />
+        <param name="odom_frame" value="odom" />
+        <param name="delta" value="0.1" />
+        </node> -->
+   
+    <node pkg="move_base" type="move_base" name="move_base" output="screen">
+        <param name="controller_frequency" value="10.0" />
+        <rosparam file="$(find BAYMAX_AGV_description)/config/costmap_common_params.yaml" command="load" ns="global_costmap"/>
+        <rosparam file="$(find BAYMAX_AGV_description)/config/costmap_common_params.yaml" command="load" ns="local_costmap"/>
+        <rosparam file="$(find BAYMAX_AGV_description)/config/local_costmap_params.yaml" command="load" />
+        <rosparam file="$(find BAYMAX_AGV_description)/config/global_costmap_params.yaml" command="load" />
+        <rosparam file="$(find BAYMAX_AGV_description)/config/base_global_planner_params.yaml" command="load" />
+        <rosparam file="$(find BAYMAX_AGV_description)/config/base_local_planner_params.yaml" command="load" />
+        <rosparam file="$(find BAYMAX_AGV_description)/config/move_base_params.yaml" command="load" />
+
+        </node>
+
+</launch>
